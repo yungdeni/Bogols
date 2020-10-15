@@ -67,7 +67,7 @@ namespace Bogol
                            bool result2 = int.TryParse(cword[5],out garbo);
                            int trash = 0;
                            bool result = int.TryParse(cword[3],out trash);
-                           if (result && result2)
+                           if (result & result2 == true)
                            {
                             switch (cword[4])
                             {
@@ -87,6 +87,26 @@ namespace Bogol
                                 throw new ArgumentException("op");
                                 }
                            }
+                           else if(result == false && result == false)
+                        {
+                                        switch (cword[4])
+                            {
+                            case "+":
+	                         array1[varNames[cword[1]]] = array1[varNames[cword[3]]] + array1[varNames[cword[5]]];
+                                break;
+                            case "-":
+                             array1[varNames[cword[1]]] = array1[varNames[cword[3]]] - array1[varNames[cword[5]]];
+                                break;
+                            case "/":
+                             array1[varNames[cword[1]]] = array1[varNames[cword[3]]] / array1[varNames[cword[5]]];
+                                break;
+                            case "*":
+                             array1[varNames[cword[1]]] = array1[varNames[cword[3]]] * array1[varNames[cword[5]]];
+                                break;
+                            default:
+                                throw new ArgumentException("op");
+                                }   
+                    }
 
 
 
