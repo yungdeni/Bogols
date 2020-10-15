@@ -40,39 +40,40 @@ namespace Bogol
                 }
                 else if (cword[0] == "set")
                 {
-
-                    switch (cword[1])
+                    int trash = 0;
+                    bool result = int.TryParse(cword[3],out trash);
+                    if (result == true)
                     {
-                        case "a":
-                            array1[0] = int.Parse(cword[3]);
-                            Console.WriteLine("Variable a has now the value: " + array1[0]);
-                            break;
-                        case "b":
-                            array1[1] = int.Parse(cword[3]);
-                            Console.WriteLine("Variable b has now the value: " + array1[1]);
-                            break;
-                        case "c":
-                            array1[2] = int.Parse(cword[3]);
-                            Console.WriteLine("Variable c has now the value: " + array1[2]);
-                            break;
-                        case "d":
-                            array1[3] = int.Parse(cword[3]);
-                            Console.WriteLine("Variable d has now the value: " + array1[3]);
-                            break;
-                        case "e":
-                            array1[4] = int.Parse(cword[3]);
-                            Console.WriteLine("Variable e has now the value: " + array1[4]);
-                            break;
-                        default:
-                            Console.WriteLine("Default case");
-                            break;
+                        array1[varNames[cword[1]]] = trash;
+                        Console.WriteLine("Variable " + cword[1]+ " now has the value " + array1[varNames[cword[1]]]);
+
+
                     }
+                    else
+                    {
+                        array1[varNames[cword[1]]] = array1[varNames[cword[3]]];
+                    }
+
 
                 }
                 else if (cword[0] == "print")
                 {
-                    Console.WriteLine(array1[varNames[cword[1]]]);
+                    if (cword[1] == "all")
+                    {
+                        
+                        Console.WriteLine("a = "+array1[0]);
+                        Console.WriteLine("b = "+ array1[1]);
+                        Console.WriteLine("c = "+ array1[2]);
+                        Console.WriteLine("d = "+ array1[3]);
+                        Console.WriteLine("e = "+ array1[4]);
+                        
+                    }
+                    else
+                    {
+                        Console.WriteLine(array1[varNames[cword[1]]]);
+                    }
                 }
+
                 else 
                 {
                     Console.WriteLine("Unkown command " + command);
@@ -86,3 +87,4 @@ namespace Bogol
         }
     }
 }
+
