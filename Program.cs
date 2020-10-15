@@ -40,22 +40,59 @@ namespace Bogol
                 }
                 else if (cword[0] == "set")
                 {
-                    int trash = 0;
-                    bool result = int.TryParse(cword[3],out trash);
-                    if (result == true)
-                    {
-                        array1[varNames[cword[1]]] = trash;
-                        Console.WriteLine("Variable " + cword[1]+ " now has the value " + array1[varNames[cword[1]]]);
+                        
+
+                   if(cword.Length == 4){
+                        int trash = 0;
+                        bool result = int.TryParse(cword[3],out trash);
+                        if (result == true)
+                        {
+                            array1[varNames[cword[1]]] = trash;
+                            Console.WriteLine("Variable " + cword[1]+ " now has the value " + array1[varNames[cword[1]]]);
 
 
+                        }
+                        else
+                        {
+                            array1[varNames[cword[1]]] = array1[varNames[cword[3]]];
+                        }
+
+                        }
                     }
-                    else
-                    {
-                        array1[varNames[cword[1]]] = array1[varNames[cword[3]]];
-                    }
+
+                     if (cword.Length == 6)
+                        {
+                           
+                           int garbo = 0;
+                           bool result2 = int.TryParse(cword[5],out garbo);
+                           int trash = 0;
+                           bool result = int.TryParse(cword[3],out trash);
+                           if (result && result2)
+                           {
+                            switch (cword[4])
+                            {
+                            case "+":
+	                         array1[varNames[cword[1]]] = trash + garbo;
+                                break;
+                            case "-":
+                             array1[varNames[cword[1]]] = trash - garbo;
+                                break;
+                            case "/":
+                             array1[varNames[cword[1]]] = trash/garbo;
+                                break;
+                            case "*":
+                             array1[varNames[cword[1]]] = trash * garbo;
+                                break;
+                            default:
+                                throw new ArgumentException("op");
+                                }
+                           }
 
 
-                }
+
+                
+                
+                        }
                 else if (cword[0] == "print")
                 {
                     if (cword[1] == "all")
