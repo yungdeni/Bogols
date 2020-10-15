@@ -18,14 +18,14 @@ namespace Bogol
             string[] cword;
             Program bogol = new Program();
             bool quit = false;
-            int[] array1 = new int[5];
+            //int[] array1 = new int[5];
             var varNames = new Dictionary<string, int>()
             {
             {"a", 0},
-            {"b", 1},
-            {"c", 2},
-            {"d", 3},
-            {"e", 4}
+            {"b", 0},
+            {"c", 0},
+            {"d", 0},
+            {"e", 0}
             };
             Console.WriteLine("Hello and welcome to BOGOL!");
             Console.WriteLine("Quit by writing 'quit'!");
@@ -40,6 +40,16 @@ namespace Bogol
                 }
                 else if (cword[0] == "set")
                 {
+                    try 
+	                {	        
+		                varNames.Add(cword[1],0);
+	                }
+	                catch (ArgumentException)
+	                {
+                        
+                        //varNames[cword[1]] = int.Parse(cword[3]);
+		                
+	                }
                 
 
                     if(cword.Length == 4)
@@ -48,12 +58,12 @@ namespace Bogol
                         bool result = int.TryParse(cword[3],out trash);
                         if (result == true)
                         {
-                            array1[varNames[cword[1]]] = trash;
-                            Console.WriteLine("Variable " + cword[1]+ " now has the value " + array1[varNames[cword[1]]]);
+                            varNames[cword[1]] = trash;
+                            Console.WriteLine("Variable " + cword[1]+ " now has the value " + varNames[cword[1]]);
                         }
                         else
                         {
-                            array1[varNames[cword[1]]] = array1[varNames[cword[3]]];
+                            varNames[cword[1]] = varNames[cword[3]];
                         }
                     }
                 }
@@ -69,22 +79,22 @@ namespace Bogol
                     bool result = int.TryParse(cword[3],out trash);
                     if (result & result2 == true)
                     {
-                        array1[varNames[cword[1]]] = DoOps(trash,garbo,cword[4]);
+                        varNames[cword[1]] = DoOps(trash,garbo,cword[4]);
                        
                     }
                     else if(result == false && result2 == false)
 
                     {
-                        array1[varNames[cword[1]]] = DoOps(array1[varNames[cword[3]]],array1[varNames[cword[5]]],cword[4]);
+                        varNames[cword[1]] = DoOps(varNames[cword[3]],varNames[cword[5]],cword[4]);
                
                     }
                     else if (result == true && result2 == false)
                     {
-                        array1[varNames[cword[1]]] = DoOps(trash,array1[varNames[cword[5]]],cword[4]);
+                        varNames[cword[1]] = DoOps(trash,varNames[cword[5]],cword[4]);
                     }
                      else if (result == false && result2 == true)
                     {
-                        array1[varNames[cword[1]]] = DoOps(array1[varNames[cword[3]]],garbo,cword[4]);
+                        varNames[cword[1]] = DoOps(varNames[cword[3]],garbo,cword[4]);
                     }
 
 
@@ -96,17 +106,16 @@ namespace Bogol
                 {
                     if (cword[1] == "all")
                     {
-                        
-                        Console.WriteLine("a = "+array1[0]);
-                        Console.WriteLine("b = "+ array1[1]);
-                        Console.WriteLine("c = "+ array1[2]);
-                        Console.WriteLine("d = "+ array1[3]);
-                        Console.WriteLine("e = "+ array1[4]);
+                        foreach (var item in varNames)
+	                    {
+                            Console.WriteLine(item.Key + " = "+ item.Value);
+	                    }
+
                         
                     }
                     else
                     {
-                        Console.WriteLine(array1[varNames[cword[1]]]);
+                        Console.WriteLine(varNames[cword[1]]);
                     }
                 }
 
