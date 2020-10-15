@@ -10,7 +10,7 @@ namespace Bogol
 {
     class Program
     {
-       
+     
         static void Main(string[] args)
         {
 
@@ -20,13 +20,13 @@ namespace Bogol
             bool quit = false;
             int[] array1 = new int[5];
             var varNames = new Dictionary<string, int>()
-        {
+            {
             {"a", 0},
             {"b", 1},
             {"c", 2},
             {"d", 3},
             {"e", 4}
-        };
+            };
             Console.WriteLine("Hello and welcome to BOGOL!");
             Console.WriteLine("Quit by writing 'quit'!");
             while (quit == false)
@@ -40,79 +40,58 @@ namespace Bogol
                 }
                 else if (cword[0] == "set")
                 {
-                        
+                
 
-                   if(cword.Length == 4){
+                    if(cword.Length == 4)
+                    {
                         int trash = 0;
                         bool result = int.TryParse(cword[3],out trash);
                         if (result == true)
                         {
                             array1[varNames[cword[1]]] = trash;
                             Console.WriteLine("Variable " + cword[1]+ " now has the value " + array1[varNames[cword[1]]]);
-
-
                         }
                         else
                         {
                             array1[varNames[cword[1]]] = array1[varNames[cword[3]]];
                         }
-
-                        }
                     }
+                }
 
-                     if (cword.Length == 6)
-                        {
+                    
+
+                if (cword.Length == 6)
+                {
                            
-                           int garbo = 0;
-                           bool result2 = int.TryParse(cword[5],out garbo);
-                           int trash = 0;
-                           bool result = int.TryParse(cword[3],out trash);
-                           if (result & result2 == true)
-                           {
-                            switch (cword[4])
-                            {
-                            case "+":
-	                         array1[varNames[cword[1]]] = trash + garbo;
-                                break;
-                            case "-":
-                             array1[varNames[cword[1]]] = trash - garbo;
-                                break;
-                            case "/":
-                             array1[varNames[cword[1]]] = trash/garbo;
-                                break;
-                            case "*":
-                             array1[varNames[cword[1]]] = trash * garbo;
-                                break;
-                            default:
-                                throw new ArgumentException("op");
-                                }
-                           }
-                           else if(result == false && result == false)
-                        {
-                                        switch (cword[4])
-                            {
-                            case "+":
-	                         array1[varNames[cword[1]]] = array1[varNames[cword[3]]] + array1[varNames[cword[5]]];
-                                break;
-                            case "-":
-                             array1[varNames[cword[1]]] = array1[varNames[cword[3]]] - array1[varNames[cword[5]]];
-                                break;
-                            case "/":
-                             array1[varNames[cword[1]]] = array1[varNames[cword[3]]] / array1[varNames[cword[5]]];
-                                break;
-                            case "*":
-                             array1[varNames[cword[1]]] = array1[varNames[cword[3]]] * array1[varNames[cword[5]]];
-                                break;
-                            default:
-                                throw new ArgumentException("op");
-                                }   
+                    int garbo = 0;
+                    bool result2 = int.TryParse(cword[5],out garbo);
+                    int trash = 0;
+                    bool result = int.TryParse(cword[3],out trash);
+                    if (result & result2 == true)
+                    {
+                        array1[varNames[cword[1]]] = DoOps(trash,garbo,cword[4]);
+                       
+                    }
+                    else if(result == false && result2 == false)
+
+                    {
+                        array1[varNames[cword[1]]] = DoOps(array1[varNames[cword[3]]],array1[varNames[cword[5]]],cword[4]);
+               
+                    }
+                    else if (result == true && result2 == false)
+                    {
+                        array1[varNames[cword[1]]] = DoOps(trash,array1[varNames[cword[5]]],cword[4]);
+                    }
+                     else if (result == false && result2 == true)
+                    {
+                        array1[varNames[cword[1]]] = DoOps(array1[varNames[cword[3]]],garbo,cword[4]);
                     }
 
 
 
                 
                 
-                        }
+                }
                 else if (cword[0] == "print")
                 {
                     if (cword[1] == "all")
@@ -131,17 +110,31 @@ namespace Bogol
                     }
                 }
 
-                else 
+                else if(cword[0] != "set")
                 {
                     Console.WriteLine("Unkown command " + command);
                 }
             }
         }
-        public void VarOperations(string[] cwords)
+
+        static int DoOps(int a, int b, string op)
         {
-            
-            
+            switch (op)
+            {
+                case "+":
+                    return a + b;
+                case "-":
+                    return a - b;
+                case "/":
+                    return a / b;
+                case "*":
+                    return a * b;
+                default:
+                    throw new ArgumentException("op");
+                
+            }
         }
+
     }
 }
 
